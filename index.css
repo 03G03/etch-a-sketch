@@ -1,0 +1,11 @@
+.main-container{
+    display: flex;
+    flex-flow: row wrap;
+}
+.grid {
+    width: 84px;
+    height: 84px;
+    background-color: pink;
+    border: solid black 1px;
+    flex: 1 1 6%;
+}
