@@ -1,9 +1,10 @@
 function generateGrid(grid) {
+    styleTag.textContent = `.flexgrid { flex-basis: calc(100% / ${grid});}`;
+    document.head.appendChild(styleTag);
     for (let i = 1; i <= grid * grid; i++) {
         const div = document.createElement("div");
-        div.textContent = i;
         div.classList.add("grid");
-        //div.style.flex = `1 1 calc(100% / ${grid + 1});`
+        div.classList.add("flexgrid");
         mainContainer.appendChild(div);
     };
     div = document.querySelectorAll(".grid");
@@ -15,7 +16,9 @@ function generateGrid(grid) {
 }
 const mainContainer = document.querySelector(".main-container");
 const resizeBtn = document.querySelector("#resize");
-const clearBtn = document.querySelector("#clear")
+const clearBtn = document.querySelector("#clear");
+const styleTag = document.createElement("style");
+
 let div;
 
 let grid = 16;
