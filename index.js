@@ -1,5 +1,5 @@
 function generateGrid(grid) {
-    styleTag.textContent += `.flexgrid { flex-basis: calc(100% / ${grid});}`;
+    styleTag.textContent = `.flexgrid { flex-basis: calc(100% / ${grid});}`;
     document.head.appendChild(styleTag);
     for (let i = 1; i <= grid * grid; i++) {
         const div = document.createElement("div");
@@ -13,18 +13,25 @@ function generateGrid(grid) {
 function blackPen() {
     div.forEach(grid => {
         grid.addEventListener("mouseover", () => {
-            grid.classList.remove("rainbow");
+            grid.removeAttribute("style");
             grid.classList.add("black");
         });
     });
 }
+function randomColor() {
+    let r = Math.floor(Math.random() * 256);
+    let g = Math.floor(Math.random() * 256);
+    let b = Math.floor(Math.random() * 256);
+    return `${r}, ${g}, ${b}`;
+}
 
 const mainContainer = document.querySelector(".main-container");
+const styleTag = document.createElement("style");
+
 const resizeBtn = document.querySelector("#resize-btn");
 const clearBtn = document.querySelector("#clear-btn");
 const rainbowBtn = document.querySelector("#rainbow-btn");
 const blackBtn = document.querySelector("#black-btn");
-const styleTag = document.createElement("style");
 
 let div;
 
@@ -45,16 +52,15 @@ resizeBtn.addEventListener("click", () => {
 clearBtn.addEventListener("click", () => {
     div.forEach(grid => {
         grid.classList.remove("black");
-        grid.classList.remove("rainbow");
+        grid.removeAttribute("style");
     });
 });
 rainbowBtn.addEventListener("click", () => {
-    styleTag.textContent += `.rainbow { background-color: pink;}`;
-    document.head.appendChild(styleTag);
     div.forEach(grid => {
         grid.addEventListener("mouseover", () => {
-            //math floor
-            grid.classList.add("rainbow");
+            const RGB = randomColor();
+            grid.classList.remove("black");
+            grid.setAttribute("style", `background-color: rgb(${RGB});`);
         });
     });
 });
