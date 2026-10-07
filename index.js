@@ -1,5 +1,5 @@
 function generateGrid(grid) {
-    styleTag.textContent = `.flexgrid { flex-basis: calc(100% / ${grid});}`;
+    styleTag.textContent += `.flexgrid { flex-basis: calc(100% / ${grid});}`;
     document.head.appendChild(styleTag);
     for (let i = 1; i <= grid * grid; i++) {
         const div = document.createElement("div");
@@ -8,15 +8,22 @@ function generateGrid(grid) {
         mainContainer.appendChild(div);
     };
     div = document.querySelectorAll(".grid");
+    blackPen();
+}
+function blackPen() {
     div.forEach(grid => {
         grid.addEventListener("mouseover", () => {
-            grid.classList.add("hover");
+            grid.classList.remove("rainbow");
+            grid.classList.add("black");
         });
     });
 }
+
 const mainContainer = document.querySelector(".main-container");
-const resizeBtn = document.querySelector("#resize");
-const clearBtn = document.querySelector("#clear");
+const resizeBtn = document.querySelector("#resize-btn");
+const clearBtn = document.querySelector("#clear-btn");
+const rainbowBtn = document.querySelector("#rainbow-btn");
+const blackBtn = document.querySelector("#black-btn");
 const styleTag = document.createElement("style");
 
 let div;
@@ -37,6 +44,20 @@ resizeBtn.addEventListener("click", () => {
 });
 clearBtn.addEventListener("click", () => {
     div.forEach(grid => {
-        grid.classList.remove("hover");
+        grid.classList.remove("black");
+        grid.classList.remove("rainbow");
     });
+});
+rainbowBtn.addEventListener("click", () => {
+    styleTag.textContent += `.rainbow { background-color: pink;}`;
+    document.head.appendChild(styleTag);
+    div.forEach(grid => {
+        grid.addEventListener("mouseover", () => {
+            //math floor
+            grid.classList.add("rainbow");
+        });
+    });
+});
+blackBtn.addEventListener("click", () => {
+    blackPen();
 });
