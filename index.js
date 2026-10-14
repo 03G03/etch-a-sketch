@@ -14,7 +14,9 @@ function blackPen() {
     div.forEach(grid => {
         grid.addEventListener("mouseover", () => {
             grid.removeAttribute("style");
-            grid.classList.add("black");
+            i += 1;
+            i > 10 ? i = 1: i = i;
+            grid.setAttribute("style", `background-color: rgb(0 0 0 / calc(0.1*${i}));`);
         });
     });
 }
@@ -34,7 +36,7 @@ const rainbowBtn = document.querySelector("#rainbow-btn");
 const blackBtn = document.querySelector("#black-btn");
 
 let div;
-
+let i = 0;
 let grid = 16;
 generateGrid(grid);
 
@@ -51,7 +53,6 @@ resizeBtn.addEventListener("click", () => {
 });
 clearBtn.addEventListener("click", () => {
     div.forEach(grid => {
-        grid.classList.remove("black");
         grid.removeAttribute("style");
     });
 });
@@ -59,7 +60,6 @@ rainbowBtn.addEventListener("click", () => {
     div.forEach(grid => {
         grid.addEventListener("mouseover", () => {
             const RGB = randomColor();
-            grid.classList.remove("black");
             grid.setAttribute("style", `background-color: rgb(${RGB});`);
         });
     });
